@@ -1,11 +1,13 @@
 package br.com.blog.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 import lombok.Data;
@@ -22,5 +24,8 @@ public class Usuario implements Serializable {
 	private Long id;
 	private String nome;
 	private String senha;
+	
+	@OneToMany(mappedBy = "usuarioId")
+	private List<Comentario> comentarios;
 	
 }

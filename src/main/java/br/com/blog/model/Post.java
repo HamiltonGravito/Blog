@@ -25,5 +25,7 @@ public class Post implements Serializable {
 	private String post;
 	@OneToMany(mappedBy = "postId")
 	private List<Link> links;
+	@OneToMany(mappedBy = "postId")
+	private List<Comentario> comentarios;
 	
 }

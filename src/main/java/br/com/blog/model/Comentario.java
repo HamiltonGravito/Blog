@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 import lombok.Data;
@@ -21,4 +23,12 @@ public class Comentario implements Serializable{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "comentario_seq")
 	private Long id;
 	private String comentario;
+	
+	@ManyToOne()
+	@JoinColumn(name = "id_post", nullable = false)
+	private Post postId;
+	
+	@ManyToOne()
+	@JoinColumn(name = "id_usuario", nullable = false)
+	private Usuario usuarioId;
 }
