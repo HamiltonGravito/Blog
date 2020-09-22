@@ -1,11 +1,13 @@
 package br.com.blog.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 import lombok.Data;
@@ -21,4 +23,7 @@ public class Post implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "post_seq")
 	private Long id;
 	private String post;
+	@OneToMany(mappedBy = "postId")
+	private List<Link> links;
+	
 }
