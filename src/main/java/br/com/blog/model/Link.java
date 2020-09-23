@@ -19,6 +19,7 @@ public class Link {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "link_seq")
 	private Long id;
 	private String link;
+	
 	@ManyToOne()
 	@JoinColumn(name = "id_post", nullable = false)
 	private Post postId;

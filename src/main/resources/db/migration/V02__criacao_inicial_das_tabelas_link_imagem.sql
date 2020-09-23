@@ -11,6 +11,6 @@ CREATE TABLE link(
 );
 
 CREATE TABLE imagem(
-     id BIGINT PRIMARY KEY DEFAULT nextval('link_seq') NOT NULL,
+     id BIGINT PRIMARY KEY DEFAULT nextval('imagem_seq') NOT NULL,
      imagem BYTEA NOT NULL
 );

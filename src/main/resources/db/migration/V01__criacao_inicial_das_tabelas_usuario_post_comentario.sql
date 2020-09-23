@@ -10,7 +10,7 @@ CREATE TABLE usuario(
 
 CREATE TABLE post(
     id BIGINT PRIMARY KEY DEFAULT nextval('post_seq') NOT NULL,
-    post TEXT NOT NULL
+    texto TEXT NOT NULL
 );
 
 CREATE TABLE comentario(

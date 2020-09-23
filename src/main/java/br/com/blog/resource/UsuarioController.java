@@ -26,4 +26,15 @@ public class UsuarioController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioSalvo);
 	}
 	
+	@PostMapping("/login")
+	public ResponseEntity<Usuario> validarLogin(@RequestBody Usuario usuario) {
+		Usuario usuarioValido = usuarioService.validarAcesso(usuario.getNome(), usuario.getSenha());
+		if(usuarioValido != null ) {
+			return ResponseEntity.status(HttpStatus.OK).body(usuarioValido);
+			
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
 }

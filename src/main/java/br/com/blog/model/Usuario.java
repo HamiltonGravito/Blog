@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Entity
@@ -26,6 +28,15 @@ public class Usuario implements Serializable {
 	private String senha;
 	
 	@OneToMany(mappedBy = "usuarioId")
+	@JsonIgnore
+	private List<Post> post;
+	
+	@OneToMany(mappedBy = "usuarioId")
+	@JsonIgnore
 	private List<Comentario> comentarios;
+	
+	@OneToMany(mappedBy = "usuarioId")
+	@JsonIgnore
+	private List<Album> albuns ;
 	
 }

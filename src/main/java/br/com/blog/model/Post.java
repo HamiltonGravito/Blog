@@ -7,8 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -22,10 +26,24 @@ public class Post implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "post_seq")
 	private Long id;
-	private String post;
+	private String titulo;
+	private String texto;
+	
+	@ManyToOne()
+	@JoinColumn(name = "id_usuario", nullable = false)
+	private Usuario usuarioId;
+	
 	@OneToMany(mappedBy = "postId")
+	@JsonIgnore
 	private List<Link> links;
+	
 	@OneToMany(mappedBy = "postId")
+	@JsonIgnore
 	private List<Comentario> comentarios;
+	
+	@OneToMany
+	@JoinColumn(name = "id_post")
+	@JsonIgnore
+	private List<PostImagem> postImagem;
 	
 }

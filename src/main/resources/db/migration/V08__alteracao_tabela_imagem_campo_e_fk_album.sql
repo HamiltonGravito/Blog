@@ -1,0 +1,3 @@
+ALTER TABLE imagem RENAME COLUMN imagem TO imagem_url;
+ALTER TABLE imagem ALTER COLUMN imagem_url TYPE VARCHAR;
+ALTER TABLE imagem ALTER COLUMN imagem_url SET NOT NULL;

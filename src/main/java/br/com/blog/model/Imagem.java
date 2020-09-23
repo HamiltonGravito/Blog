@@ -1,10 +1,15 @@
 package br.com.blog.model;
 
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 import lombok.Data;
@@ -17,6 +22,16 @@ public class Imagem {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "imagem_seq")
 	private Long id;
-	@Lob
-	private Byte[] imagem;
+	
+	@Column(name = "imagem_url")
+	private String imagemUrl;
+	
+	@ManyToOne()
+	@JoinColumn(name = "id_album", nullable = true)
+	private Album albumId;
+		
+	@OneToMany
+	@JoinColumn(name = "id_imagem")
+	private List<PostImagem> postImagem;
+	
 }

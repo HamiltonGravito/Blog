@@ -1,0 +1,2 @@
+ALTER TABLE post ADD COLUMN id_usuario BIGINT NOT NULL;
+ALTER TABLE post ADD FOREIGN KEY(id_usuario) REFERENCES usuario(id);
