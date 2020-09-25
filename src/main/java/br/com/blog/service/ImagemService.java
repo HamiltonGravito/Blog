@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.com.blog.model.Imagem;
 import br.com.blog.repository.ImagemRepository;
 
 @Service
@@ -19,9 +18,10 @@ public class ImagemService {
 	@Autowired
 	private ImagemRepository imagemRepository;
 	
-	public File salvarImagemLocal(MultipartFile arquivo) {
+	public File salvarImagem(MultipartFile arquivo) {
 		byte[] imgUpload;
-		Path path = Paths.get("src/main/resources/imgtemp/", arquivo.getOriginalFilename());
+		Long proximoId = imagemRepository.correnteValueSeqImagem();
+		Path path = Paths.get("src/main/resources/imgtemp/", String.valueOf(proximoId) + arquivo.getOriginalFilename());
 		try {
 			imgUpload = arquivo.getBytes();
 			FileOutputStream in = new FileOutputStream(path.toFile());
@@ -32,9 +32,5 @@ public class ImagemService {
 		}
 
 		return path.toFile();
-	}
-	
-	public Imagem salvar(Imagem imagem) {
-		return imagemRepository.save(imagem);
 	}
 }

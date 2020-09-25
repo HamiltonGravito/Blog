@@ -30,4 +30,9 @@ public class UsuarioService {
 		return usuario;
 	}
 	
+	public Usuario buscarPorId(Long id) {
+		Usuario usuario = usuarioRepository.getOne(id);
+		return usuario;
+	}
+	
 }

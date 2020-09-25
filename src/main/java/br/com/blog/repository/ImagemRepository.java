@@ -2,6 +2,7 @@ package br.com.blog.repository;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +13,6 @@ import br.com.blog.model.Imagem;
 @EntityScan(basePackageClasses = {Imagem.class})
 public interface ImagemRepository extends JpaRepository<Imagem, Long>{
 
+	@Query(value = "SELECT nextval('imagem_seq')", nativeQuery = true)
+	Long correnteValueSeqImagem();
 }

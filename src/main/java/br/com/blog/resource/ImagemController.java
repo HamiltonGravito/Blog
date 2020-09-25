@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.blog.service.AwsService;
 import br.com.blog.service.ImagemService;
 
 @RestController
@@ -22,19 +23,24 @@ public class ImagemController {
 	@Autowired
 	private ImagemService imagemService;
 	
+	@Autowired(required = true)
+	private AwsService s3Service;
+	
 	@PostMapping
-	public ResponseEntity<File> adicionarImagemLocal(@RequestParam MultipartFile file) {
+	public ResponseEntity<String> adicionarImagem(@RequestParam MultipartFile file) {
 		File arquivo = null;
+		String pathAWS = "https://eventarea.s3-us-west-1.amazonaws.com/";
 		try {
-			arquivo =  imagemService.salvarImagemLocal(file);
-			System.out.println("Cheguei no File: " + arquivo);
-			return ResponseEntity.status(HttpStatus.CREATED).body(arquivo);
+			arquivo =  imagemService.salvarImagem(file);
+			System.out.println(arquivo.getName());
+			s3Service.uploadFile(arquivo, arquivo.getName());
 		} catch (Exception e) {
 			System.out.println("Erro ao Salvar Imagem: " + e);
-			arquivo = null;
-			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
 		}finally {
-		
+			if(arquivo.exists()) {
+				arquivo.delete();
+			}
 		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(pathAWS + arquivo.getName());
 	}
 }

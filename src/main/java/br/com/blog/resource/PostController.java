@@ -15,7 +15,7 @@ import br.com.blog.model.Post;
 import br.com.blog.service.PostService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/post")
 public class PostController {
 
@@ -24,6 +24,7 @@ public class PostController {
 	
 	@PostMapping
 	public ResponseEntity<Post> salvar(@RequestBody Post post){
+		System.out.println("##########" + post.toString());
 		Post postSalvo = postService.cadastrarPost(post);
 		return ResponseEntity.status(HttpStatus.CREATED).body(postSalvo);	
 	}
@@ -32,4 +33,5 @@ public class PostController {
 	public void excluir(@RequestParam Long id) {
 		postService.excluirPost(id);
 	}
+	
 }

@@ -25,4 +25,5 @@ public class PostService {
 	public void excluirPost(Long id) {
 		postRepository.deleteById(id);
 	}
+	
 }
