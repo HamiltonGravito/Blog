@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
+import org.springframework.boot.context.properties.ConstructorBinding;
+
 import lombok.Data;
 
 @Entity
@@ -19,6 +21,14 @@ public class Link {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "link_seq")
 	private Long id;
 	private String link;
+	
+	public Link(String link) {
+		this.link = link;
+	}
+	
+	public Link() {
+		
+	}
 	
 	@ManyToOne()
 	@JoinColumn(name = "id_post", nullable = false)

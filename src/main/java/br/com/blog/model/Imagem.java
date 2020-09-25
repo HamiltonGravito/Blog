@@ -31,7 +31,11 @@ public class Imagem {
 	private Album albumId;
 		
 	@OneToMany
-	@JoinColumn(name = "id_imagem")
+	@JoinColumn(name = "id_imagem", nullable = true)
 	private List<PostImagem> postImagem;
+	
+	public Imagem(String imagemUrl) {
+		this.imagemUrl = imagemUrl;
+	}
 	
 }

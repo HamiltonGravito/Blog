@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.blog.model.Imagem;
 import br.com.blog.repository.ImagemRepository;
 
 @Service
@@ -32,5 +33,9 @@ public class ImagemService {
 		}
 
 		return path.toFile();
+	}
+	
+	public void salvarUrlImagem(Imagem imagem) {
+		imagemRepository.save(imagem);
 	}
 }

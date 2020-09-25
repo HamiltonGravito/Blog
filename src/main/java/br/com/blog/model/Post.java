@@ -3,6 +3,7 @@ package br.com.blog.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,19 +31,25 @@ public class Post implements Serializable {
 	private String titulo;
 	private String texto;
 	
+	@Transient
+	private List<String> listaLinks;
+	
+	@Transient
+	private List<String> listaImagens;
+	
 	@ManyToOne()
 	@JoinColumn(name = "id_usuario", nullable = false)
 	private Usuario usuarioId;
 	
-	@OneToMany(mappedBy = "postId")
+	@OneToMany(mappedBy = "postId", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Link> links;
 	
-	@OneToMany(mappedBy = "postId")
+	@OneToMany(mappedBy = "postId", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Comentario> comentarios;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_post")
 	@JsonIgnore
 	private List<PostImagem> postImagem;

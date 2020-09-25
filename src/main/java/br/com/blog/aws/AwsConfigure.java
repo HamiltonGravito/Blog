@@ -11,9 +11,9 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 @Configuration
 public class AwsConfigure {
 
-	  private static final String AWSID = "";
+	  private static final String AWSID = "AKIA3QGP4WCSNP3WSLMI";
 	 
-	  private static final String AWSKEY = "";
+	  private static final String AWSKEY = "uUOJMlSCxb8Yg2HwNB5Ejzbzo2YEV4uffSBGrua+";
 	  
 	  private static final String REGION = "us-west-1";
 	  

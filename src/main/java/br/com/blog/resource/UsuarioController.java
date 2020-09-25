@@ -32,6 +32,8 @@ public class UsuarioController {
 	public ResponseEntity<Usuario> validarLogin(@RequestBody Usuario usuario) {
 		Usuario usuarioValido = usuarioService.validarAcesso(usuario.getNome(), usuario.getSenha());
 		if(usuarioValido != null ) {
+			usuarioValido.setNome(null);
+			usuarioValido.setSenha(null);
 			return ResponseEntity.status(HttpStatus.OK).body(usuarioValido);
 			
 		}else {

@@ -1,0 +1,2 @@
+ALTER TABLE imagem ADD COLUMN id_album BIGINT;
+ALTER TABLE imagem ADD FOREIGN KEY(id_album) REFERENCES album(id);

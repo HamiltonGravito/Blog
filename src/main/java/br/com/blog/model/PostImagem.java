@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@SequenceGenerator(name = "postImg_seq", sequenceName = "postImg_seq", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name = "post_imagem_seq", sequenceName = "post_imagem_seq", initialValue = 1, allocationSize = 1)
 @Table(name = "post_imagem")
 public class PostImagem {
 
@@ -22,9 +22,14 @@ public class PostImagem {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_post")
+	@JoinColumn(name = "id_post", nullable = false)
 	private Post post;
 	@ManyToOne
-	@JoinColumn(name = "id_imagem")
+	@JoinColumn(name = "id_imagem", nullable = false)
 	private Imagem imagem;
+	
+	public PostImagem(Imagem imagem,Post post) {
+		this.imagem = imagem;
+		this.post = post;
+	}
 }
