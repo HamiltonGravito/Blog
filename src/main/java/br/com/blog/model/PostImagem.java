@@ -18,7 +18,7 @@ import lombok.Data;
 public class PostImagem {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "postImg_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "post_imagem_seq")
 	private Long id;
 	
 	@ManyToOne

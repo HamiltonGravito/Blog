@@ -8,8 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
-import org.springframework.boot.context.properties.ConstructorBinding;
-
 import lombok.Data;
 
 @Entity

@@ -22,7 +22,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@PostMapping
+	@PostMapping("/cadastrar")
 	public ResponseEntity<Usuario> salvar(@RequestBody Usuario usuario){
 		Usuario usuarioSalvo = usuarioService.salvarUsuario(usuario);
 		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioSalvo);
