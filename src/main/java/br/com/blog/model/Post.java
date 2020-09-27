@@ -47,11 +47,10 @@ public class Post implements Serializable {
 	
 	@OneToMany(mappedBy = "postId", cascade = CascadeType.ALL)
 	@JsonIgnore
-	private List<Comentario> comentarios;
+	private List<Imagem> imagens;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_post")
+	@OneToMany(mappedBy = "postId", cascade = CascadeType.ALL)
 	@JsonIgnore
-	private List<PostImagem> postImagem;
+	private List<Comentario> comentarios;
 	
 }

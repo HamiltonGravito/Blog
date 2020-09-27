@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.blog.model.Usuario;
@@ -22,10 +23,10 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@PostMapping
-	public ResponseEntity<Usuario> salvar(@RequestBody Usuario usuario){
-		Usuario usuarioSalvo = usuarioService.salvarUsuario(usuario);
-		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioSalvo);
+	@PostMapping("/cadastrar")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public void salvar(@RequestBody Usuario usuario){
+		usuarioService.salvarUsuario(usuario);
 	}
 	
 	@PostMapping("/login")
@@ -43,8 +44,14 @@ public class UsuarioController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Usuario> buscarPeloCodigo(@PathVariable Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(usuarioService.buscarPorId(id));
+		Usuario usuarioRetornado = usuarioService.buscarPorId(id);
+		if(usuarioRetornado!= null ) {
+			usuarioRetornado.setNome(null);
+			usuarioRetornado.setSenha(null);
+			return ResponseEntity.status(HttpStatus.OK).body(usuarioRetornado);
+			
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
-	
-	
 }

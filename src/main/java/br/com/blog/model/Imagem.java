@@ -1,7 +1,5 @@
 package br.com.blog.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 import lombok.Data;
@@ -29,13 +26,24 @@ public class Imagem {
 	@ManyToOne()
 	@JoinColumn(name = "id_album", nullable = true)
 	private Album albumId;
-		
-	@OneToMany
-	@JoinColumn(name = "id_imagem", nullable = true)
-	private List<PostImagem> postImagem;
+	
+	@ManyToOne()
+	@JoinColumn(name = "id_post", nullable = false)
+	private Post postId;
 	
 	public Imagem(String imagemUrl) {
 		this.imagemUrl = imagemUrl;
 	}
 	
+	public Imagem() {
+		
+	}
+
+	public Imagem(Long id, String imagemUrl, Album albumId, Post postId) {
+		super();
+		this.id = id;
+		this.imagemUrl = imagemUrl;
+		this.albumId = albumId;
+		this.postId = postId;
+	}
 }

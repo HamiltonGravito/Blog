@@ -19,6 +19,25 @@ public class Comentario implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	public Comentario(String comentario, Post postId, Usuario usuarioId) {
+		super();
+		this.comentario = comentario;
+		this.postId = postId;
+		this.usuarioId = usuarioId;
+	}
+
+	public Comentario(Long id, String comentario, Post postId, Usuario usuarioId) {
+		super();
+		this.id = id;
+		this.comentario = comentario;
+		this.postId = postId;
+		this.usuarioId = usuarioId;
+	}
+
+	public Comentario() {
+		super();
+	}
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "comentario_seq")
 	private Long id;

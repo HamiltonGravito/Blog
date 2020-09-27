@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,9 @@ public class ImagemService {
 	
 	public void salvarUrlImagem(Imagem imagem) {
 		imagemRepository.save(imagem);
+	}
+	
+	public List<Imagem> listaDeImagens(Long id){
+		return imagemRepository.findByImagemPorPostId(id);	
 	}
 }

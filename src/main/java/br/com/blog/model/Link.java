@@ -8,8 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
-import org.springframework.boot.context.properties.ConstructorBinding;
-
 import lombok.Data;
 
 @Entity
@@ -30,6 +28,13 @@ public class Link {
 		
 	}
 	
+	public Link(Long id, String link, Post postId) {
+		super();
+		this.id = id;
+		this.link = link;
+		this.postId = postId;
+	}
+
 	@ManyToOne()
 	@JoinColumn(name = "id_post", nullable = false)
 	private Post postId;

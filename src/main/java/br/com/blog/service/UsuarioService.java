@@ -1,6 +1,7 @@
 package br.com.blog.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,8 @@ public class UsuarioService {
 	}
 	
 	public Usuario buscarPorId(Long id) {
-		Usuario usuario = usuarioRepository.getOne(id);
-		return usuario;
+		Optional<Usuario> usuario = usuarioRepository.findById(id);
+		return usuario.get();
 	}
 	
 }

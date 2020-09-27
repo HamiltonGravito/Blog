@@ -8,14 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.blog.model.Album;
-import br.com.blog.model.Imagem;
 import br.com.blog.service.AlbumService;
 
 @RestController
@@ -38,14 +37,20 @@ public class AlbumController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(albumSalvo);
 	}
 	
-	@DeleteMapping
-	public void excluirAlbum(@RequestParam Long id) {
-		albumService.excluirAlbum(id);
+	@DeleteMapping("/{idAlbum}/{idUsuario}")
+    public ResponseEntity<?> deletarAlbum(@PathVariable Long idAlbum, @PathVariable Long idUsuario) {
+		if(albumService.listarAlbumPorIdUsuario(idUsuario).contains(albumService.confirmarUsuarioAlbum(idAlbum, idUsuario))) {
+			albumService.excluirAlbum(idAlbum, idUsuario);
+			return ResponseEntity.ok().build();
+		}else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 	
-	@PostMapping("/img")
-	public ResponseEntity<Album> salvarImagemNoAlbum(@RequestBody Imagem imagem, @RequestParam Long id){
-		Album albumAtualizado = albumService.adicionarImagemALbum(imagem, id);
-		return ResponseEntity.status(HttpStatus.OK).body(albumAtualizado);
+	@RequestMapping("/{imagemUrl}/{idAlbum}/{idUsuario}")
+	public ResponseEntity<?> salvarImagemNoAlbum(@PathVariable String imagemUrl, @PathVariable Long idAlbum, @PathVariable Long idUsuario){
+		albumService.adicionarImagemALbum(imagemUrl, idAlbum, idUsuario);
+		return ResponseEntity.status(HttpStatus.OK).build();
 	}
+	
 }

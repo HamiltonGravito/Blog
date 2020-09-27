@@ -1,5 +1,6 @@
 CREATE SEQUENCE link_seq START 1 INCREMENT 1;
 CREATE SEQUENCE imagem_seq START 1 INCREMENT 1;
+CREATE SEQUENCE imagem_nome_seq START 1 INCREMENT 1;
 
 CREATE TABLE link(
     id BIGINT PRIMARY KEY DEFAULT nextval('link_seq') NOT NULL,
@@ -12,5 +13,8 @@ CREATE TABLE link(
 
 CREATE TABLE imagem(
      id BIGINT PRIMARY KEY DEFAULT nextval('imagem_seq') NOT NULL,
-     imagem BYTEA NOT NULL
+     imagem BYTEA NOT NULL,
+
+     id_post BIGINT,
+     FOREIGN KEY(id_post) REFERENCES post(id)
 );
