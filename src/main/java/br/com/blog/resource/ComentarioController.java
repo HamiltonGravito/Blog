@@ -22,7 +22,7 @@ import br.com.blog.service.PostService;
 import br.com.blog.service.UsuarioService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/comentario")
 public class ComentarioController {
 
@@ -35,18 +35,21 @@ public class ComentarioController {
 	@Autowired
 	private PostService postService;
 	
-	@PostMapping("/{idPost}/{idUsuario}")
-	public ResponseEntity<Comentario> salvar(@RequestBody String comentario, @PathVariable Long idPost, @PathVariable Long idUsuario){
-		Usuario usuario = usuarioService.buscarPorId(idUsuario);
-		Post post = postService.buscarPostPorId(idPost);
-		Comentario novoComentario = new Comentario(comentario, post, usuario);
+	@PostMapping("/cadastrar")
+	public ResponseEntity<Comentario> salvar(@RequestBody Comentario comentario){
+		Usuario usuario = usuarioService.buscarPorId(comentario.getUsuarioId().getId());
+		Post post = postService.buscarPostPorId(comentario.getPostId().getId());
+		Comentario novoComentario = new Comentario(comentario.getComentario(), post, usuario);
 		comentarioService.salvarComentario(novoComentario);
 		return ResponseEntity.status(HttpStatus.CREATED).body(novoComentario);	
 	}
 	
-	@DeleteMapping("/{idComentario}/{idUsuario}")
+	
+	@DeleteMapping("delete/{idComentario}/{idUsuario}")
 	public ResponseEntity<?> excluir(@PathVariable Long idComentario, @PathVariable Long idUsuario) {
-		if(comentarioService.excluirComentario(idComentario, idUsuario)) {
+		Comentario comentario = comentarioService.buscarComentarioPorId(idComentario);
+		if(comentario.getUsuarioId().getId() == idUsuario) {
+			comentarioService.excluirComentario(idComentario);
 			return ResponseEntity.ok().build();
 		}else {
 			return ResponseEntity.notFound().build();

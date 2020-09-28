@@ -16,7 +16,7 @@ import br.com.blog.model.Usuario;
 import br.com.blog.service.UsuarioService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/usuario")
 public class UsuarioController {
 
@@ -29,7 +29,7 @@ public class UsuarioController {
 		usuarioService.salvarUsuario(usuario);
 	}
 	
-	@PostMapping("/login")
+	@PostMapping("/logar")
 	public ResponseEntity<Usuario> validarLogin(@RequestBody Usuario usuario) {
 		Usuario usuarioValido = usuarioService.validarAcesso(usuario.getNome(), usuario.getSenha());
 		if(usuarioValido != null ) {

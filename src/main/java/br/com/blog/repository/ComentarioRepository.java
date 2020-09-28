@@ -17,4 +17,7 @@ public interface ComentarioRepository extends JpaRepository<Comentario, Long> {
 
 	@Query(value = "SELECT * FROM comentario WHERE id_post = ?1", nativeQuery = true)
 	List<Comentario> findByComentarioPorPostId(Long id);
+	
+	@Query(value = "SELECT * FROM comentario WHERE id_usuario = ?1", nativeQuery = true)
+	List<Comentario> findByComentarioPorUsuario(Long id);
 }

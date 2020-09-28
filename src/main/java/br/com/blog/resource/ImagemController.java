@@ -20,7 +20,7 @@ import br.com.blog.service.AwsService;
 import br.com.blog.service.ImagemService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/imagem")
 public class ImagemController {
 

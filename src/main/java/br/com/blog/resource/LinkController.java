@@ -17,7 +17,7 @@ import br.com.blog.model.Link;
 import br.com.blog.service.LinkService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/post/link")
 public class LinkController {
 	

@@ -19,18 +19,17 @@ public class ComentarioService {
 		return comentarioRepository.save(comentario);
 	}
 	
-	public boolean excluirComentario(Long idComentario, Long idUsuario) {
-		boolean comentarioExcluido = false;
-		List<Comentario> listaDeComentarios = listarComentariosPorPostId(idUsuario);
-		Optional<Comentario> comentario = comentarioRepository.findById(idComentario);
-		if(listaDeComentarios.contains(comentario.get())) {
-			comentarioRepository.deleteById(idComentario);
-			comentarioExcluido = true;
-		}
-		return comentarioExcluido;
+	public void excluirComentario(Long idComentario) {
+		Comentario comentario = buscarComentarioPorId(idComentario);
+		comentarioRepository.deleteById(comentario.getId());
 	}
 	
 	public List<Comentario> listarComentariosPorPostId(Long id){
 		return comentarioRepository.findByComentarioPorPostId(id);
+	}
+	
+	public Comentario buscarComentarioPorId(Long id) {
+		Optional<Comentario> comentario =  comentarioRepository.findById(id);
+		return comentario.get();
 	}
 }

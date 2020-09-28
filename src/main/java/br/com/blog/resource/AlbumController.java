@@ -18,7 +18,7 @@ import br.com.blog.model.Album;
 import br.com.blog.service.AlbumService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/album")
 public class AlbumController {
 

@@ -22,7 +22,7 @@ import br.com.blog.service.LinkService;
 import br.com.blog.service.PostService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/post")
 public class PostController {
 
@@ -35,7 +35,7 @@ public class PostController {
 	@Autowired(required = true)
 	private ImagemService imagemService;
 
-	@PostMapping
+	@PostMapping("/cadastrar")
 	public ResponseEntity<Post> salvar(@RequestBody Post post) {
 		if (post != null) {
 			List<String> links = post.getListaLinks();
@@ -65,7 +65,7 @@ public class PostController {
 		}
 	}
 
-	@DeleteMapping("/{idPost}/{idUsuario}")
+	@DeleteMapping("deletar/{idPost}/{idUsuario}")
 	public ResponseEntity<?> excluir(@PathVariable Long idPost, @PathVariable Long idUsuario) {
 		Post post = postService.buscarPostPorId(idPost);
 		if(post.getUsuarioId().getId() == idUsuario) {
@@ -76,7 +76,7 @@ public class PostController {
 		}
 	}
 
-	@GetMapping
+	@GetMapping("/buscar")
 	public ResponseEntity<List<Post>> listarPost() {
 		List<Post> listaPost = postService.listarPosts();
 		return !listaPost.isEmpty() ? ResponseEntity.ok(listaPost) : ResponseEntity.noContent().build();
