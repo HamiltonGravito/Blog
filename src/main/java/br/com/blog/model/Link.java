@@ -1,5 +1,7 @@
 package br.com.blog.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 import lombok.Data;
 
@@ -19,6 +22,9 @@ public class Link {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "link_seq")
 	private Long id;
 	private String link;
+	
+	@Transient
+	List<Link> listaLinks;
 	
 	public Link(String link) {
 		this.link = link;

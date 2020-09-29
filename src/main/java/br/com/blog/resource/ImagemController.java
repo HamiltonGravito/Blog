@@ -1,6 +1,7 @@
 package br.com.blog.resource;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,12 +49,17 @@ public class ImagemController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<List<Imagem>> buscarImgPeloIdPost(@PathVariable Long id) {
+	public ResponseEntity<List<String>> buscarImgPeloIdPost(@PathVariable Long id) {
 		List<Imagem> listaDeImagens = imagemService.listaDeImagens(id);
+		List<String> listaDeCaminhos = new ArrayList<>();
+		for (Imagem imagem : listaDeImagens) {
+			listaDeCaminhos.add(imagem.getImagemUrl());
+			System.out.println("Lista de Imagens" + imagem);
+		}
 		if(listaDeImagens.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}else {
-			return ResponseEntity.status(HttpStatus.OK).body(listaDeImagens);
+			return ResponseEntity.status(HttpStatus.OK).body(listaDeCaminhos);
 		}
 	}
 }

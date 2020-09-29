@@ -37,14 +37,14 @@ public class PostController {
 
 	@PostMapping("/cadastrar")
 	public ResponseEntity<Post> salvar(@RequestBody Post post) {
-		if (post != null) {
 			List<String> links = post.getListaLinks();
 			Link link;
 			List<String> imagens = post.getListaImagens();
 			Imagem imagem;
 			Post postSalvo = postService.cadastrarPost(post);
 
-			if (post.getLinks() != null) {
+			System.out.println(post.toString());
+			if (post.getListaLinks() != null) {
 				for (String valor : links) {
 					link = new Link(valor);
 					link.setPostId(postSalvo);
@@ -52,18 +52,16 @@ public class PostController {
 				}
 			}
 
-			if (post.getImagens() != null) {
+			if (post.getListaImagens() != null) {
 				for (String valor : imagens) {
 					imagem = new Imagem(valor);
 					imagem.setPostId(postSalvo);
+					System.out.println(imagem.toString());
 					imagemService.salvarUrlImagem(imagem);
 				}
 			}
 			return ResponseEntity.status(HttpStatus.CREATED).body(postSalvo);
-		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
-	}
 
 	@DeleteMapping("deletar/{idPost}/{idUsuario}")
 	public ResponseEntity<?> excluir(@PathVariable Long idPost, @PathVariable Long idUsuario) {
