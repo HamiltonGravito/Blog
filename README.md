@@ -2,7 +2,7 @@
 API Feita utilizando spring boot para criação de um blog.
 
 # Rodar o projeto
-1º - Baixe o projeto na branch atualFaltaToken - (git clone -b atual https://github.com/HamiltonGravito/Blog.git)
+1º - Baixe o projeto na branch atual - (git clone -b atual https://github.com/HamiltonGravito/Blog.git)
 
 2º - Crie um banco de dados postgresql com o nome blog... As configurações do BD poderão ser encontradas no arquivo resource/application.properties para alteração de porta(5432), usuario(postgresql) e password(1234) caso necessário.
 
